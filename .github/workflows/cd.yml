@@ -52,7 +52,7 @@ jobs:
             DBT_CORE_VERSION=${{ matrix.dbt_core_version }}
           tags: "\
             ghcr.io/techonomydev/dbt-runner-serverless:\
-            build-version-${{ steps.get_version.outputs.version-without-v }}\
+            build-${{ steps.get_version.outputs.version-without-v }}\
             -dbt-${{ matrix.dbt_core_version }}\
             -${{ matrix.adapter_package }}-${{ matrix.adapter_package_version }}\
             "
@@ -74,7 +74,7 @@ jobs:
           docker run \
           --entrypoint dbt \
           ghcr.io/techonomydev/dbt-runner-serverless:\
-          build-version-${{ steps.get_version.outputs.version-without-v }}\
+          build-${{ steps.get_version.outputs.version-without-v }}\
           -dbt-${{ matrix.dbt_core_version }}\
           -${{ matrix.adapter_package }}-${{ matrix.adapter_package_version }} \
           --version
