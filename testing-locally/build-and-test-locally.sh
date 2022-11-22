@@ -6,3 +6,10 @@ docker build ../ \
 :build-1.0.0\
 -dbt-1.3.1\
 -dbt-postgres-1.3.1"
+
+docker run \
+"dbt-runner-serverless\
+:build-1.0.0\
+-dbt-1.3.1\
+-dbt-postgres-1.3.1" \
+  dbt --version
