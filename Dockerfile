@@ -53,4 +53,6 @@ FROM python-base as image
 
 ENV DBT_PROFILES_DIR="/dbt-profile-dir/"
 
+WORKDIR /dbt/
+
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
