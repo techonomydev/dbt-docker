@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-docker:
+    name: 🔨 Build Docker
     strategy:
       matrix:
         include:
@@ -45,7 +46,7 @@ jobs:
           context: .
           platforms: linux/amd64,
           push: true
-          build-args: >-
+          build-args: |
             ADAPTER_PACKAGE=${{ matrix.adapter_package }}==${{ matrix.adapter_package_version }}
             DBT_CORE_VERSION=${{ matrix.dbt_core_version }}
           tags: "\
