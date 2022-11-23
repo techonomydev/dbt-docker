@@ -38,3 +38,7 @@ By default, only users of this repo have access to this image.
 To give other repositories access to this image you can do so by
 giving that repository read access 
 [here](https://github.com/orgs/techonomydev/packages/container/dbt-runner/settings)
+
+## Development
+
+- To trigger the Continuous Deployment you must add a version tag e.g. `v1.0.0`
