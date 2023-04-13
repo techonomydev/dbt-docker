@@ -2,8 +2,9 @@ name: CD
 
 on:
   push:
-    tags:
-      - 'v*'
+    branch:
+      - main
+      - feature/new-builds
 
 jobs:
   build-docker:
@@ -11,61 +12,70 @@ jobs:
     strategy:
       matrix:
         include:
-          - dbt_core_version: 1.3.1
-            adapter_package: dbt-postgres
-            adapter_package_version: 1.3.1
-          - dbt_core_version: 1.3.1
-            adapter_package: dbt-snowflake
-            adapter_package_version: 1.3.0
+          - 
+            adapter_name: postgres
+            dbt_version: 1.4.5
+            elementary_version: 0.7.7
+          - 
+            adapter_name: snowflake
+            dbt_version: 1.4.2
+            elementary_version: 0.7.7
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: ⬇️ checkout
         uses: actions/checkout@v3
 
-      - name: Set up QEMU
+      - name: 🐳 Set up QEMU
         uses: docker/setup-qemu-action@v2
+      
+      - name: 🏷️ Generate tag
+        id: tag
+        run: 
+          'echo "TAG=\
+          ghcr.io/techonomydev/dbt-runner-serverless:\
+          adapter-${{ matrix.adapter_name }}\
+          -dbt${{ matrix.dbt_version }}\
+          -elementary${{ matrix.elementary_version }}\
+          " >> $GITHUB_ENV'
 
-      - name: get version from tag
-        id: get_version
-        uses: battila7/get-version-action@v2
-
-      - name: Login to GitHub Container Registry
+      - name: 🔑 Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup buildx
+      - name: ⬇️ Setup buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
         with:
           buildkitd-flags: --debug
 
-      - name: Build and push docker
+      - name: 🔨 Build the docker image
         id: docker_build
         uses: docker/build-push-action@v3
         with:
           context: .
           platforms: linux/amd64,
-          push: true
+          load: true
           build-args: |
-            ADAPTER_PACKAGE=${{ matrix.adapter_package }}==${{ matrix.adapter_package_version }}
-            DBT_CORE_VERSION=${{ matrix.dbt_core_version }}
-          tags: "\
-            ghcr.io/techonomydev/dbt-runner-serverless:\
-            build-${{ steps.get_version.outputs.version-without-v }}\
-            -dbt-${{ matrix.dbt_core_version }}\
-            -${{ matrix.adapter_package }}-${{ matrix.adapter_package_version }}\
-            "
+            DBT_PACKAGE=dbt-${{ matrix.adapter_name }}==${{ matrix.dbt_version }}
+            ELEMENTARY_PACKAGE=elementary-data[${{ matrix.adapter_name }}]==${{ matrix.elementary_version }}
+          tags: ${{ env.TAG }}
 
-      - name: Run test on docker
+      - name: 🧪 Test the docker image
         # Check if dbt is available from the docker
         run: |
           docker run \
           --entrypoint dbt \
-          ghcr.io/techonomydev/dbt-runner-serverless:\
-          build-${{ steps.get_version.outputs.version-without-v }}\
-          -dbt-${{ matrix.dbt_core_version }}\
-          -${{ matrix.adapter_package }}-${{ matrix.adapter_package_version }} \
+          ${{ env.TAG }}
           --version
+
+      - name: 🚀 Deploy the docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,
+          file: ./docker/Dockerfile
+          push: true
+          tags: ${{ env.TAG }}

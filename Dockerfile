@@ -30,12 +30,12 @@ WORKDIR $PYSETUP_PATH
 
 RUN python -m venv .venv
 
-ARG DBT_CORE_VERSION
-ARG ADAPTER_PACKAGE
+ARG DBT_ADAPTER_PACKAGE
+ARG ELEMENTARY_ADAPTER_PACKAGE
 
 RUN echo "The variables are \
-DBT_CORE_VERSION=${DBT_CORE_VERSION}, \
-ADAPTER_PACKAGE=${ADAPTER_PACKAGE}"
+DBT_PACKAGE=${DBT_PACKAGE}, \
+ELEMENTARY_PACKAGE=${ELEMENTARY_PACKAGE}"
 
 # Installs DBT
 RUN if [ -z "${DBT_CORE_VERSION}" ] ; \
@@ -43,10 +43,17 @@ RUN if [ -z "${DBT_CORE_VERSION}" ] ; \
     fi
 RUN pip install "dbt-core==${DBT_CORE_VERSION}"
 
+
+# Installs DBT
+RUN if [ -z "${DBT_PACKAGE}" ] ; \
+    then echo "DBT_PACKAGE must be specified"; exit 1; \
+    fi
+RUN pip install ${DBT_PACKAGE}
+
 # Installs an DBT-Adapter package if desired
-RUN if [ -z "${ADAPTER_PACKAGE}" ] ; \
-    then echo "No adapter package specified, continuing"; \
-    else pip install ${ADAPTER_PACKAGE} ; \
+RUN if [ -z "${ELEMENTARY_PACKAGE}" ] ; \
+    then echo "No ELEMENTARY_PACKAGE package specified, continuing"; \
+    else pip install ${ELEMENTARY_PACKAGE} ; \
     fi
 
 FROM python-base as image
