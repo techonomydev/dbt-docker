@@ -68,7 +68,7 @@ jobs:
         run: |
           docker run \
           --entrypoint dbt \
-          ${{ env.TAG }}
+          ${{ env.TAG }} \
           --version
 
       - name: 🚀 Deploy the docker image
