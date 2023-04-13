@@ -38,13 +38,6 @@ DBT_PACKAGE=${DBT_PACKAGE}, \
 ELEMENTARY_PACKAGE=${ELEMENTARY_PACKAGE}"
 
 # Installs DBT
-RUN if [ -z "${DBT_CORE_VERSION}" ] ; \
-    then echo "DBT_CORE_VERSION must be specified"; exit 1; \
-    fi
-RUN pip install "dbt-core==${DBT_CORE_VERSION}"
-
-
-# Installs DBT
 RUN if [ -z "${DBT_PACKAGE}" ] ; \
     then echo "DBT_PACKAGE must be specified"; exit 1; \
     fi
