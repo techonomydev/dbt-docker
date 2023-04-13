@@ -1,10 +1,17 @@
 # DBT Runner Docker Serverless
 
-This repository generates a set of docker images 
-that can be used to run DBT.
+This repository generates a set of docker images that can be used to run DBT.
 
 If a necessary version of dbt-core or a dbt-adapter is not available,
 it can be added to the matrix strategy in the continuous deployment (cd) workflow.
+
+## Elementary
+
+This docker comes with elementary pre-installed.
+This can be used to monitor your dbt runs.
+It isn't necessary to use or configure it but this does mean that no custom docker-configuration needs to occur to use elementary with your project.
+
+To implement it follow elementary's [quickstart guide](https://docs.elementary-data.com/quickstart).
 
 ## Alternatives
 
