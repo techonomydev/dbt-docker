@@ -30,13 +30,13 @@ jobs:
       
       - name: 🏷️ Generate tag
         id: tag
-        run: 
-          'echo "TAG=\
+        run: "\
+          echo \"TAG=\
           ghcr.io/techonomydev/dbt-runner-serverless:\
           adapter-${{ matrix.adapter_name }}\
           -dbt${{ matrix.dbt_version }}\
           -elementary${{ matrix.elementary_version }}\
-          " >> $GITHUB_ENV'
+          \" >> $GITHUB_ENV"
 
       - name: 🔑 Login to GitHub Container Registry
         uses: docker/login-action@v1
