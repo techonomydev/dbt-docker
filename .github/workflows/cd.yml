@@ -34,8 +34,8 @@ jobs:
           echo \"TAG=\
           ghcr.io/techonomydev/dbt-runner-serverless:\
           adapter-${{ matrix.adapter_name }}\
-          -dbt${{ matrix.dbt_version }}\
-          -elementary${{ matrix.elementary_version }}\
+          -dbt-${{ matrix.dbt_version }}\
+          -elementary-${{ matrix.elementary_version }}\
           \" >> $GITHUB_ENV"
 
       - name: 🔑 Login to GitHub Container Registry
