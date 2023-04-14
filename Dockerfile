@@ -43,9 +43,9 @@ RUN if [ -z "${DBT_PACKAGE}" ] ; \
     fi
 RUN pip install ${DBT_PACKAGE}
 
-# Installs an DBT-Adapter package if desired
+# Installs Elementary
 RUN if [ -z "${ELEMENTARY_PACKAGE}" ] ; \
-    then echo "No ELEMENTARY_PACKAGE package specified, continuing"; \
+    then echo "ELEMENTARY_PACKAGE must be specified"; exit 1; \
     else pip install ${ELEMENTARY_PACKAGE} ; \
     fi
 

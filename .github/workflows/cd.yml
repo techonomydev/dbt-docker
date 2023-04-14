@@ -63,13 +63,21 @@ jobs:
             ELEMENTARY_PACKAGE=elementary-data[${{ matrix.adapter_name }}]==${{ matrix.elementary_version }}
           tags: ${{ env.TAG }}
 
-      - name: 🧪 Test the docker image
+      - name: 🧪 Test dbt on the docker image
         # Check if dbt is available from the docker
         run: |
           docker run \
           --entrypoint dbt \
           ${{ env.TAG }} \
           --version
+      
+      - name: 🧪 Test elementary on the docker image
+        # Check if dbt is available from the docker
+        run: |
+          docker run \
+          --entrypoint edr \
+          ${{ env.TAG }} \
+          --help
 
       - name: 🚀 Deploy the docker image
         uses: docker/build-push-action@v4
