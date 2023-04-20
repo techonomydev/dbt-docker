@@ -4,7 +4,6 @@ on:
   push:
     branch:
       - main
-      - feature/new-builds
 
 jobs:
   build-docker:
@@ -14,7 +13,7 @@ jobs:
         include:
           - 
             adapter_name: postgres
-            dbt_version: 1.4.5
+            dbt_version: 1.4.6
             elementary_version: 0.7.7
           - 
             adapter_name: snowflake
