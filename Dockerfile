@@ -31,7 +31,7 @@ WORKDIR $PYSETUP_PATH
 RUN python -m venv .venv
 
 ARG DBT_PACKAGE
-ARG ELEMENTARY_ADAPTER_PACKAGE
+ARG ELEMENTARY_PACKAGE
 
 RUN echo "The variables are \
 DBT_PACKAGE=${DBT_PACKAGE}, \
@@ -43,9 +43,9 @@ RUN if [ -z "${DBT_PACKAGE}" ] ; \
     fi
 RUN pip install ${DBT_PACKAGE}
 
-# Installs an DBT-Adapter package if desired
+# Installs Elementary
 RUN if [ -z "${ELEMENTARY_PACKAGE}" ] ; \
-    then echo "No ELEMENTARY_PACKAGE package specified, continuing"; \
+    then echo "ELEMENTARY_PACKAGE must be specified"; exit 1; \
     else pip install ${ELEMENTARY_PACKAGE} ; \
     fi
 

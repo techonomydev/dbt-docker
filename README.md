@@ -8,10 +8,10 @@ it can be added to the matrix strategy in the continuous deployment (cd) workflo
 ## Elementary
 
 This docker comes with elementary pre-installed.
-This can be used to monitor your dbt runs.
+This can be used to monitor your dbt runs & tests.
 It isn't necessary to use or configure it but this does mean that no custom docker-configuration needs to occur to use elementary with your project.
 
-To implement it follow elementary's [quickstart guide](https://docs.elementary-data.com/quickstart).
+More information can be found [here](./ELEMENTARTY.MD)
 
 ## Alternatives
 
