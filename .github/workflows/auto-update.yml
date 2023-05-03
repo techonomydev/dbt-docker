@@ -29,7 +29,7 @@ jobs:
       - name: Update DBT-Adapter
         uses: fjogeleit/yaml-update-action@v0.13.0
         with:
-          valueFile: 'github\workflows\cd.yml'
+          valueFile: '.github/workflows/cd.yml'
           propertyPath: "jobs.build-docker.strategy.matrix.include[?adapter_name == '${{ matrix.adapter_name }}'][0].dbt_version"
           value: ${{ steps.versions.outputs.adapter }}
           commitChange: false
@@ -37,7 +37,7 @@ jobs:
       - name: Update Elementary
         uses: fjogeleit/yaml-update-action@v0.13.0
         with:
-          valueFile: 'github\workflows\cd.yml'
+          valueFile: '.github/workflows/cd.yml'
           propertyPath: "jobs.build-docker.strategy.matrix.include[?adapter_name == '${{ matrix.adapter_name }}'][0].elementary_version"
           value: ${{ steps.versions.outputs.elementary }}
           commitChange: false
