@@ -43,7 +43,7 @@ jobs:
           commitChange: true
 
       - name: check for changes
-        run: git diff
+        run: tail -n 30 .github/workflows/cd.yml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
