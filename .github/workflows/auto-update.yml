@@ -27,7 +27,7 @@ jobs:
           echo "::set-output name=elementary::$(curl -s https://pypi.org/pypi/elementary-data/json | jq -r '.info.version')"      
 
       - name: Update DBT-Adapter
-        uses: fjogeleit/yaml-update-action@0.13.0
+        uses: fjogeleit/yaml-update-action@v0.13.0
         with:
           valueFile: 'github\workflows\cd.yml'
           propertyPath: "jobs.build-docker.strategy.matrix.include[?adapter_name == '${{ matrix.adapter_name }}'][0].dbt_version"
@@ -35,7 +35,7 @@ jobs:
           commitChange: false
 
       - name: Update Elementary
-        uses: fjogeleit/yaml-update-action@0.13.0
+        uses: fjogeleit/yaml-update-action@v0.13.0
         with:
           valueFile: 'github\workflows\cd.yml'
           propertyPath: "jobs.build-docker.strategy.matrix.include[?adapter_name == '${{ matrix.adapter_name }}'][0].elementary_version"
@@ -49,5 +49,5 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
             commit-message: ⬆️ Updated dbt-${{ matrix.adapter_name }} to ${{ steps.versions.outputs.adapter }} and elementary-data to ${{ steps.versions.outputs.elementary }}
-            title: 🤖⬆️ Auto-update versions
+            title: 🤖⬆️ Auto-update versions for ${{ steps.versions.outputs.adapter }}
             branch: auto-update-dependencies
