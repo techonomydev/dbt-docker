@@ -26,21 +26,12 @@ jobs:
           echo "::set-output name=adapter::$(curl -s https://pypi.org/pypi/dbt-${{ matrix.adapter_name }}/json | jq -r '.info.version')"
           echo "::set-output name=elementary::$(curl -s https://pypi.org/pypi/elementary-data/json | jq -r '.info.version')"      
 
-      - name: Update DBT-Adapter
-        uses: fjogeleit/yaml-update-action@v0.13.0
-        with:
-          valueFile: '.github/workflows/cd.yml'
-          propertyPath: "jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].dbt_version"
-          value: ${{ steps.versions.outputs.adapter }}
-          commitChange: true
-
-      - name: Update Elementary
-        uses: fjogeleit/yaml-update-action@v0.13.0
-        with:
-          valueFile: '.github/workflows/cd.yml'
-          propertyPath: "jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].elementary_version"
-          value: ${{ steps.versions.outputs.elementary }}
-          commitChange: true
+      - name: ✒️ Update dependencies in CD configuration
+        run: |
+          yq -i "
+            jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].dbt_version = '${{ steps.versions.outputs.adapter }}' |
+            jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].elementary_version = '${{ steps.versions.outputs.elementary }}'
+          " .github/workflows/cd.yml
 
       - name: check for changes
         run: head -n 30 .github/workflows/cd.yml
