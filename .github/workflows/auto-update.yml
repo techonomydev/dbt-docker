@@ -43,7 +43,7 @@ jobs:
             title: 🤖⬆️ Auto-update versions for ${{ steps.versions.outputs.adapter }}
             branch: auto/update-dependencies/${{ matrix.adapter_name }}
             token: ${{ secrets.AUTO_UPDATE_PAT }}
-            reviewers: luttik
+            team-reviewers: data-engineering
             delete-branch: true
             labels: |
               dependency updates
