@@ -13,8 +13,8 @@ jobs:
             dbt_version: 1.5.0
             elementary_version: 0.7.8
           - adapter_name: snowflake
-            dbt_version: 1.4.2
-            elementary_version: 0.7.7
+            dbt_version: 1.5.0
+            elementary_version: 0.7.8
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout
