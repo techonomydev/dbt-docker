@@ -28,10 +28,10 @@ jobs:
 
       - name: ✒️ Update dependencies in CD configuration
         run: |
-          yq -i "
-            jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].dbt_version = '${{ steps.versions.outputs.adapter }}' |
-            jobs['build-docker'].strategy.matrix.include[?(@.adapter_name == '${{ matrix.adapter_name }}')][0].elementary_version = '${{ steps.versions.outputs.elementary }}'
-          " .github/workflows/cd.yml
+          yq -i '
+            (.jobs["build-docker"].strategy.matrix.include | map(select(.adapter_name == "${{ matrix.adapter_name }}")).[0].dbt_version) = "${{ steps.versions.outputs.adapter }}" |
+            (.jobs["build-docker"].strategy.matrix.include | map(select(.adapter_name == "${{ matrix.adapter_name }}")).[0].elementary_version) = "${{ steps.versions.outputs.elementary }}"
+          ' .github/workflows/cd.yml
 
       - name: check for changes
         run: head -n 30 .github/workflows/cd.yml
