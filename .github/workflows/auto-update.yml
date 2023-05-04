@@ -15,6 +15,7 @@ jobs:
         include:
           - adapter_name: postgres
           - adapter_name: snowflake
+          - adapter_name: bigquery
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ checkout
