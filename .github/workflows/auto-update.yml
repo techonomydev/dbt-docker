@@ -1,0 +1,50 @@
+name: Auto-update
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  push:
+    branches:
+      - main
+
+jobs:
+  update-self:
+    name: ⬇️ Updates build script
+    strategy:
+      matrix:
+        include:
+          - adapter_name: postgres
+          - adapter_name: snowflake
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ checkout
+        uses: actions/checkout@v3
+
+      - name: 🏷️ Get versions
+        id: versions
+        run: | 
+          echo "::set-output name=adapter::$(curl -s https://pypi.org/pypi/dbt-${{ matrix.adapter_name }}/json | jq -r '.info.version')"
+          echo "::set-output name=elementary::$(curl -s https://pypi.org/pypi/elementary-data/json | jq -r '.info.version')"      
+
+      - name: ✒️ Update dependencies in CD configuration
+        run: |
+          yq -i '
+            (.jobs["build-docker"].strategy.matrix.include | map(select(.adapter_name == "${{ matrix.adapter_name }}")).[0].dbt_version) = "${{ steps.versions.outputs.adapter }}" |
+            (.jobs["build-docker"].strategy.matrix.include | map(select(.adapter_name == "${{ matrix.adapter_name }}")).[0].elementary_version) = "${{ steps.versions.outputs.elementary }}"
+          ' .github/workflows/cd.yml
+
+      - name: check for changes
+        run: head -n 30 .github/workflows/cd.yml
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+            commit-message: ⬆️ Updated dbt-${{ matrix.adapter_name }} to ${{ steps.versions.outputs.adapter }} and elementary-data to ${{ steps.versions.outputs.elementary }}
+            title: 🤖⬆️ Auto-update versions for ${{ steps.versions.outputs.adapter }}
+            branch: auto/update-dependencies/${{ matrix.adapter_name }}
+            token: ${{ secrets.AUTO_UPDATE_PAT }}
+            team-reviewers: data-engineering
+            delete-branch: true
+            labels: |
+              dependency updates
+              automated pr
