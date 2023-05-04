@@ -41,5 +41,10 @@ jobs:
         with:
             commit-message: ⬆️ Updated dbt-${{ matrix.adapter_name }} to ${{ steps.versions.outputs.adapter }} and elementary-data to ${{ steps.versions.outputs.elementary }}
             title: 🤖⬆️ Auto-update versions for ${{ steps.versions.outputs.adapter }}
-            branch: auto-update-dependencies
+            branch: auto/update-dependencies/${{ matrix.adapter_name }}
             token: ${{ secrets.AUTO_UPDATE_PAT }}
+            reviewers: luttik
+            delete-branch: true
+            labels: |
+              dependency updates
+              automated pr
