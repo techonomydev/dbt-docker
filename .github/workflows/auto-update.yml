@@ -9,6 +9,9 @@ on:
 
 jobs:
   update-self:
+    permissions:
+      write-all
+
     name: ⬇️ Updates build script
     strategy:
       matrix:
