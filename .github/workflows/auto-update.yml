@@ -41,7 +41,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
             commit-message: ⬆️ Updated dbt-${{ matrix.adapter_name }} to ${{ steps.versions.outputs.adapter }} and elementary-data to ${{ steps.versions.outputs.elementary }}
-            title: 🤖⬆️ Auto-update versions for ${{ steps.versions.outputs.adapter }}
+            title: 🤖⬆️ Auto-update versions for dbt-${{ matrix.adapter_name }} ${{ steps.versions.outputs.adapter }} and elementary-data ${{ steps.versions.outputs.elementary }}
             branch: auto/update-dependencies/${{ matrix.adapter_name }}
             token: ${{ secrets.AUTO_UPDATE_PAT }}
             team-reviewers: data-engineering
