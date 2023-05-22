@@ -11,7 +11,7 @@ jobs:
         include:
           - adapter_name: postgres
             dbt_version: 1.5.0
-            elementary_version: 0.7.9
+            elementary_version: 0.7.10
           - adapter_name: snowflake
             dbt_version: 1.5.0
             elementary_version: 0.7.10
