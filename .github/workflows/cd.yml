@@ -10,8 +10,8 @@ jobs:
       matrix:
         include:
           - adapter_name: postgres
-            dbt_version: 1.6.0
-            elementary_version: 0.9.2
+            dbt_version: 1.6.1
+            elementary_version: 0.10.0
           - adapter_name: snowflake
             dbt_version: 1.6.0
             elementary_version: 0.9.2
