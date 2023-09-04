@@ -13,7 +13,7 @@ jobs:
             dbt_version: 1.6.1
             elementary_version: 0.10.0
           - adapter_name: snowflake
-            dbt_version: 1.6.1
+            dbt_version: 1.6.2
             elementary_version: 0.10.0
           - adapter_name: bigquery
             dbt_version: 1.6.3
