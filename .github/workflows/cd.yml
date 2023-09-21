@@ -16,7 +16,7 @@ jobs:
             dbt_version: 1.6.2
             elementary_version: 0.10.0
           - adapter_name: bigquery
-            dbt_version: 1.6.4
+            dbt_version: 1.6.5
             elementary_version: 0.10.0
     runs-on: ubuntu-latest
     steps:
