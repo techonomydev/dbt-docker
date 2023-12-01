@@ -13,12 +13,6 @@ It isn't necessary to use or configure it but this does mean that no custom dock
 
 More information can be found [here](./ELEMENTARTY.MD)
 
-## Alternatives
-
-We also have a server-based version called
-[dbt-runner](https://github.com/techonomydev/dbt-runner-docker).
-This provides API endpoints to interact with docker.
-
 ## Building for production
 
 To use this docker for your actual environment apply the following steps:
@@ -35,9 +29,6 @@ To use this docker for your actual environment apply the following steps:
   Check if the json secrets has properly escaped newlines in the `private_key` property.
   If these newlines if you see a new line instead of `\n` in the yaml menu of the live view 
   you'll need to escape the newline slashes like so `\\n`.
-- For better monitoring it is useful to include
-  [dbt-run-monitoring](https://github.com/techonomydev/dbt-run-monitoring)
-  as a dbt package to your project.
 
 ## Accessing the image from other repositories during CD
 
@@ -49,3 +40,13 @@ giving that repository read access
 ## Development
 
 - To trigger the Continuous Deployment you must add a version tag e.g. `v1.0.0`
+
+
+## Old Alternatives
+
+⚠️ Don't use this for new projects.
+
+We also have a server-based version called
+[dbt-runner](https://github.com/techonomydev/dbt-runner-docker).
+This provides API endpoints to interact with docker.
+
