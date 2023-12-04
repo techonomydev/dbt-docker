@@ -20,7 +20,7 @@ RUN apt-get update \
     && apt install git -y
 
 # `builder-base` stage is used to build deps + create our virtual environment
-FROM python-base as builder-base
+FROM python-base AS builder-base
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         # deps for building python deps
