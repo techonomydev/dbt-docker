@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye as python-base
+FROM python:3.10-slim-bullseye AS python-base
 
 # python
 ENV PYTHONUNBUFFERED=1 \
@@ -49,7 +49,7 @@ RUN if [ -z "${ELEMENTARY_PACKAGE}" ] ; \
     else pip install ${ELEMENTARY_PACKAGE} ; \
     fi
 
-FROM python-base as image
+FROM python-base AS image
 
 ENV DBT_PROFILES_DIR="/dbt-profile-dir/"
 
