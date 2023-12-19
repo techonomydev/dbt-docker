@@ -95,7 +95,12 @@ A terraform example can be found [here](https://github.com/techonomydev/ahoy-inf
 
 ## Hosting reports
 
-We haven't done this before 😉
+### Using the `elementary-serve-from-azure` script
+This script downloads an elementary report and serves the report in the same container. 
+
+
+### Other methods
+We haven't hosted Elementary reports using other methods, though writing to Azure blobs, GCP storage buckets
 
 ## Advanced features
 

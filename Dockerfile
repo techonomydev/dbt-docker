@@ -50,13 +50,19 @@ RUN if [ -z "${ELEMENTARY_PACKAGE}" ] ; \
     fi
 
 
+FROM mcr.microsoft.com/azure-cli:2.55.0 AS elementary-report-server
+
+RUN apk update && apk upgrade
+RUN apk add --no-cache python3
+
+# Include elementary serve script in image
+COPY scripts/elementary-serve-report.bash /usr/bin/elementary-serve-from-azure
+RUN chmod +x /usr/bin/elementary-serve-from-azure
+
+
 FROM python-base AS image
 
 ENV DBT_PROFILES_DIR="/dbt-profile-dir/"
-
-# Include elementary serve script in image
-COPY scripts/elementary-serve.bash /usr/bin/elementary-serve
-RUN chmod +x /usr/bin/elementary-serve
 
 WORKDIR /dbt/
 
