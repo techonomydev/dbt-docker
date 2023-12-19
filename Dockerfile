@@ -55,8 +55,10 @@ FROM mcr.microsoft.com/azure-cli:2.55.0 AS elementary-report-server
 RUN apk update && apk upgrade
 RUN apk add --no-cache python3
 
+RUN pip install azure-storage-blob azure-identity flask flask-caching
+
 # Include elementary serve script in image
-COPY scripts/elementary-serve-report.bash /usr/bin/elementary-serve-from-azure
+COPY scripts/elementary_serve_report.py /usr/bin/elementary-serve-from-azure
 RUN chmod +x /usr/bin/elementary-serve-from-azure
 
 
