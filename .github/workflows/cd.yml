@@ -83,8 +83,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      name: 🚀 Build, test and push the docker image
-      steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v3
       - name: ⬇️ Set up QEMU
