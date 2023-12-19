@@ -46,4 +46,6 @@ def download_file():
         return f"An error occurred: {str(e)}"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=int(os.getenv("ELEMENTARY_SERVE_PORT", "8080")))
+    from waitress import serve
+
+    serve(app, host="0.0.0.0", port=int(os.getenv("ELEMENTARY_SERVE_PORT", "8080")))
