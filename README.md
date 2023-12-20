@@ -1,4 +1,4 @@
-# DBT Runner Docker Serverless
+# DBT & Elementary Docker
 
 This repository generates a set of docker images that can be used to run DBT.
 
