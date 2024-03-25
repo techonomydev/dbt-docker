@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: "\U0001F3F7️ Generate tag"
         id: tag
-        run: "echo \"TAG=ghcr.io/techonomydev/dbt-runner-serverless:adapter-${{ matrix.adapter_name }}-dbt-${{ matrix.dbt_version }}-elementary-${{ matrix.elementary_version }}\" >> $GITHUB_ENV"
+        run: "echo \"TAG=ghcr.io/techonomydev/dbt:adapter-${{ matrix.adapter_name }}-dbt-${{ matrix.dbt_version }}-elementary-${{ matrix.elementary_version }}\" >> $GITHUB_ENV"
       - name: "\U0001F528 Build the docker image"
         id: docker_build
         uses: docker/build-push-action@v4
