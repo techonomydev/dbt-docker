@@ -10,14 +10,14 @@ jobs:
       matrix:
         include:
           - adapter_name: postgres
-            dbt_version: 1.6.1
-            elementary_version: 0.10.0
+            dbt_version: 1.7.10
+            elementary_version: 0.14.1
           - adapter_name: snowflake
-            dbt_version: 1.6.2
-            elementary_version: 0.10.0
+            dbt_version: 1.7.2
+            elementary_version: 0.14.1
           - adapter_name: bigquery
-            dbt_version: 1.6.7
-            elementary_version: 0.11.0
+            dbt_version: 1.7.6
+            elementary_version: 0.14.1
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout
